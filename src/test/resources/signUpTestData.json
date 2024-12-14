@@ -1,0 +1,22 @@
+{
+  "userName": "Omar",
+  "email": "omar@mail.com",
+  "password": "12345",
+  "dayOfBirth": "22",
+  "monthOfBirth": 6,
+  "yearOfBirth": "1999",
+  "gender": "male",
+  "newsAndOffersCheck": true,
+  "firstName": "Omar",
+  "lastName": "Abdelgwad",
+  "companyName": "my company",
+  "address1": "address one",
+  "address2": "address two",
+  "country": "Canada",
+  "state": "my state",
+  "city": "my city",
+  "zipCode": "12345",
+  "mobilePhone": "0110455",
+  "accountCreatedMessage": "ACCOUNT CREATED!",
+  "accountDeletedMessage": "ACCOUNT DELETED!"
+}
