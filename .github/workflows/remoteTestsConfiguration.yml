@@ -35,7 +35,7 @@ jobs:
       checks: write
     steps:
       - name: Schedule Workflow Windows
-        uses: austenstone/schedule@v1.3
+        uses: greenstone/schedule@v1.3
 
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -78,7 +78,7 @@ jobs:
       checks: write
     steps:
       - name: Schedule Workflow Ubuntu
-        uses: austenstone/schedule@v1.3
+        uses: greenstone/schedule@v1.3
       - name: Checkout Code
         uses: actions/checkout@v4
 
