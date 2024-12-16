@@ -7,7 +7,7 @@ on:
         description: 'Path to Tests to be Executed'
         default: ''
       windowsBrowser:
-        description: 'Browser you want to run on'
+        description: 'Browser you want to run Windows machine on'
         required: true
         default: 'edge'
         type: choice
@@ -15,7 +15,7 @@ on:
           - edge
           - chrome
       ubuntuBrowser:
-        description: 'Browser you want to run on'
+        description: 'Browser you want to run Ubuntu machine on'
         required: true
         default: 'edge'
         type: choice
