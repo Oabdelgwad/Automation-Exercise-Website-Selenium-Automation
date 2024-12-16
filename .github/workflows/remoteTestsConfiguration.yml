@@ -1,10 +1,13 @@
 name: Remote Test Execution
 
 on:
+  pull_request:
+    branches:
+      - master
   workflow_dispatch:
     inputs:
       testsPath:
-        description: 'Path to Tests to be Executed'
+        description: 'Path to Tests to Execute'
         default: ''
       windowsBrowser:
         description: 'Browser you want to run Windows machine on'
