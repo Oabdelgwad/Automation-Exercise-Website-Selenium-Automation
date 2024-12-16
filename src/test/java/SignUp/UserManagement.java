@@ -26,7 +26,7 @@ public class UserManagement{
     }
     @BeforeMethod
     public void driverSetupAndWebsiteNavigation(){
-        driver = DriverFactory.driverSetUp(System.getProperty("browserName"),true);
+        driver = DriverFactory.driverSetUp(System.getProperty("browserName"),true,System.getProperty("headless"));
         testData=new JsonFileManager("src/test/resources/signUpTestData.json");
     }
     @Description("Verify on new user registeration")
