@@ -4,8 +4,7 @@ on:
   pull_request:
     branches:
       - master
-  schedule:
-    - cron: '*/5 * * * *'
+
   workflow_dispatch:
     inputs:
       testsPath:
@@ -35,6 +34,9 @@ jobs:
     permissions:
       checks: write
     steps:
+      - name: Schedule Workflow Windows
+        uses: austenstone/schedule@v1.3
+
       - name: Checkout Code
         uses: actions/checkout@v4
 
@@ -53,6 +55,15 @@ jobs:
         continue-on-error: true
         run: mvn -DbrowserName="${{github.event.inputs.windowsBrowser}}" -Dtest="${{github.event.inputs.testsPath}}" test
 
+      - name: Generate Allure Report Single File Windows
+        continue-on-error: true
+        run:  mvn allure:report
+
+      - name: Upload Allure Report as Artifact Windows
+        uses: actions/upload-artifact@v3
+        with:
+          name: Edge_Windows_Allure
+          path: target/site/allure-maven-plugin/index.html
       - name: Publish Report
         continue-on-error: true
         uses: dorny/test-reporter@v1
@@ -66,6 +77,8 @@ jobs:
     permissions:
       checks: write
     steps:
+      - name: Schedule Workflow Ubuntu
+        uses: austenstone/schedule@v1.3
       - name: Checkout Code
         uses: actions/checkout@v4
 
@@ -83,6 +96,16 @@ jobs:
       - name: Run Tests
         continue-on-error: true
         run: mvn -DbrowserName="${{github.event.inputs.ubuntuBrowser}}" -Dheadless=headless -Dtest="${{github.event.inputs.testsPath}}" test
+
+      - name: Generate Allure Report Single File Ubuntu
+        continue-on-error: true
+        run:  mvn allure:report
+
+      - name: Upload Allure Report as Artifact Ubuntu
+        uses: actions/upload-artifact@v3
+        with:
+          name: Edge_Windows_Allure
+          path: target/site/allure-maven-plugin/index.html
 
       - name: Publish Report
         continue-on-error: true
