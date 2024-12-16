@@ -18,7 +18,6 @@ on:
 
 jobs:
   Remote_Tests_Execution_windows:
-    if: ${{ inputs.operatingSystem == 'Windows and Ubuntu' }}
     runs-on: windows-latest
     permissions:
       checks: write
@@ -50,7 +49,6 @@ jobs:
           path: 'target/surefire-reports/TEST-*.xml'
           reporter: java-junit
   Remote_Tests_Execution_ubuntu:
-    if: ${{ inputs.operatingSystem == 'Windows and Ubuntu' }}
     runs-on: ubuntu-latest
     permissions:
       checks: write
