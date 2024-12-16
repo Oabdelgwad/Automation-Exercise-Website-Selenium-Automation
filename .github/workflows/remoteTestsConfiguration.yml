@@ -60,7 +60,7 @@ jobs:
       - name: Upload Allure Report as Artifact Windows
         uses: actions/upload-artifact@v3
         with:
-          name: Edge_Windows_Allure
+          name: Windows_Allure
           path: target/site/allure-maven-plugin/index.html
       - name: Publish Report
         continue-on-error: true
@@ -100,7 +100,7 @@ jobs:
       - name: Upload Allure Report as Artifact Ubuntu
         uses: actions/upload-artifact@v3
         with:
-          name: Edge_Windows_Allure
+          name: Ubuntu_Allure
           path: target/site/allure-maven-plugin/index.html
 
       - name: Publish Report
