@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  E2E_Edge_Windows_Test:
+  Remote Tests Execution:
     runs-on: windows-latest
     permissions:
       checks: write
@@ -27,6 +27,10 @@ jobs:
         uses: stCarolas/setup-maven@v4.5
         with:
           maven-version: 3.9.6
+
+      - name: Run Tests
+        continue-on-error: true
+        run: mvn -Dtest="${{github.event.inputs.testpath}}" test
 
       - name: Publish Report
         continue-on-error: true
