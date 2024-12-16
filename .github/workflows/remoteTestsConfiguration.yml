@@ -6,6 +6,14 @@ on:
       testsPath:
         description: 'Path to Tests to be Executed'
         default: ''
+      browser:
+        description: 'Browser you want to run on'
+        required: true
+        default: 'edge'
+        type: choice
+        options:
+          - edge
+          - chrome
 
 jobs:
   Remote_Tests_Execution:
@@ -29,7 +37,7 @@ jobs:
 
       - name: Run Tests
         continue-on-error: true
-        run: mvn -Dtest="${{github.event.inputs.testsPath}}" test
+        run: mvn -DbrowserName="${{github.event.inputs.browser}}" -Dtest="${{github.event.inputs.testsPath}}" test
 
       - name: Publish Report
         continue-on-error: true
