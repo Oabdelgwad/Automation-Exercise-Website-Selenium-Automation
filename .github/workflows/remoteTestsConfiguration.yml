@@ -8,8 +8,7 @@ on:
         default: ''
 
 jobs:
-
-  Remote Tests Execution:
+  Remote_Tests_Execution:
     runs-on: windows-latest
     permissions:
       checks: write
