@@ -34,8 +34,6 @@ jobs:
     permissions:
       checks: write
     steps:
-      - name: Schedule Workflow Windows
-        uses: greenstone/schedule@v1.3
 
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -77,8 +75,6 @@ jobs:
     permissions:
       checks: write
     steps:
-      - name: Schedule Workflow Ubuntu
-        uses: greenstone/schedule@v1.3
       - name: Checkout Code
         uses: actions/checkout@v4
 
