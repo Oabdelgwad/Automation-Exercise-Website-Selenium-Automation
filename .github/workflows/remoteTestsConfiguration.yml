@@ -6,7 +6,15 @@ on:
       testsPath:
         description: 'Path to Tests to be Executed'
         default: ''
-      browser:
+      windowsBrowser:
+        description: 'Browser you want to run on'
+        required: true
+        default: 'edge'
+        type: choice
+        options:
+          - edge
+          - chrome
+      ubuntuBrowser:
         description: 'Browser you want to run on'
         required: true
         default: 'edge'
@@ -38,7 +46,7 @@ jobs:
 
       - name: Run Tests
         continue-on-error: true
-        run: mvn -DbrowserName="${{github.event.inputs.browser}}" -Dtest="${{github.event.inputs.testsPath}}" test
+        run: mvn -DbrowserName="${{github.event.inputs.windowsBrowser}}" -Dtest="${{github.event.inputs.testsPath}}" test
 
       - name: Publish Report
         continue-on-error: true
@@ -69,7 +77,7 @@ jobs:
 
       - name: Run Tests
         continue-on-error: true
-        run: mvn -DbrowserName="${{github.event.inputs.browser}}" -Dheadless=headless -Dtest="${{github.event.inputs.testsPath}}" test
+        run: mvn -DbrowserName="${{github.event.inputs.ubuntuBrowser}}" -Dheadless=headless -Dtest="${{github.event.inputs.testsPath}}" test
 
       - name: Publish Report
         continue-on-error: true
