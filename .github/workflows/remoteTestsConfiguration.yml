@@ -13,7 +13,7 @@ on:
     inputs:
       testsPath:
         description: 'Path to Tests to Execute'
-        default: 'SignUp.UserManagement'\
+        default: 'SignUp.UserManagement'
 
       windowsBrowser:
         description: 'Browser you want to run Windows machine on'
