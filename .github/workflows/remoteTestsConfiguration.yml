@@ -2,7 +2,7 @@ name: Remote Test Execution
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/20 * * * *"
   pull_request:
     branches:
       - master
