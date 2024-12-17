@@ -38,7 +38,7 @@ jobs:
       checks: write
     steps:
       - name: Set Input Values for Scheduled Runs
-        if: github.event_name == 'schedule'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           echo "INPUT1=static-value-1" >> $GITHUB_ENV
           echo "INPUT2=static-value-2" >> $GITHUB_ENV
@@ -113,7 +113,6 @@ jobs:
 
       - name: Generate Surefire Report
         continue-on-error: true
-        fail_if_no_tests: false
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
