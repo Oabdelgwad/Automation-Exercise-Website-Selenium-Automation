@@ -7,9 +7,6 @@ on:
     branches:
       - master
 
-
-
-
   workflow_dispatch:
     inputs:
       testsPath:
@@ -37,16 +34,13 @@ on:
 jobs:
   Remote_Tests_Execution_windows:
     runs-on: windows-latest
+    env:
+      TESTS_PATH: "SignUp.UserManagement"
+      WINDOWS_BROWSER: "edge"
+
     permissions:
       checks: write
     steps:
-      - name: Set Input Values for Scheduled Runs
-        if: github.event_name == 'schedule'
-        run: |
-          echo "TESTS_PATH=SignUp.UserManagement" >> $GITHUB_ENV
-          echo "WINDOWS_BROWSER=chrome" >> $GITHUB_ENV
-          echo "UBUNTU_BROWSER=chrome" >> $GITHUB_ENV
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -69,7 +63,7 @@ jobs:
       - name: Run Tests Automatically
         continue-on-error: true
         if: github.event_name == 'schedule'
-        run: mvn -DbrowserName="$WINDOWS_BROWSER" -Dtest="$TESTS_PATH" test
+        run: mvn -DbrowserName=${{ env.WINDOWS_BROWSER }} -Dtest=${{ env.TESTS_PATH }} test
 
       - name: Generate Allure Report Single File Windows
         continue-on-error: true
@@ -90,16 +84,12 @@ jobs:
           reporter: java-junit
   Remote_Tests_Execution_ubuntu:
     runs-on: ubuntu-latest
+    env:
+      TESTS_PATH: "SignUp.UserManagement"
+      UBUNTU_BROWSER: "chrome"
     permissions:
       checks: write
     steps:
-      - name: Set Input Values for Scheduled Runs
-        if: github.event_name == 'schedule'
-        run: |
-          echo "testsPath=SignUp.UserManagement" >> $GITHUB_ENV
-          echo "windowsBrowser=chrome" >> $GITHUB_ENV
-          echo "ubuntuBrowser=chrome" >> $GITHUB_ENV
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -122,7 +112,7 @@ jobs:
       - name: Run Tests Automatically
         continue-on-error: true
         if: github.event_name == 'schedule'
-        run: mvn -DbrowserName="$UBUNTU_BROWSER" -Dheadless=headless -Dtest="$TESTS_PATH" test
+        run: mvn -DbrowserName=${{ env.UBUNTU_BROWSER }} -Dheadless=headless -Dtest=${{ env.TEST_PATH }} test
 
       - name: Generate Allure Report Single File Ubuntu
         continue-on-error: true
