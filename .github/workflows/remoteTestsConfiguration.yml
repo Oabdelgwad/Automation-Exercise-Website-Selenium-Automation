@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - master
+  schedule:
+    - cron: '*/5 * * * *'
+
 
   workflow_dispatch:
     inputs:
@@ -35,13 +38,13 @@ jobs:
       checks: write
     steps:
 
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup JDK 21
+      - name: Setup Java JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'corretto'
           java-version: '21'
 
       - name: Set up Maven
@@ -75,13 +78,13 @@ jobs:
     permissions:
       checks: write
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup JDK 21
+      - name: Setup Java JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'corretto'
           java-version: '21'
 
       - name: Set up Maven
@@ -103,8 +106,9 @@ jobs:
           name: Ubuntu_Allure
           path: target/site/allure-maven-plugin/index.html
 
-      - name: Publish Report
+      - name: Generate Surefire Report
         continue-on-error: true
+        fail_if_no_tests: false
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
