@@ -42,9 +42,9 @@ jobs:
       - name: Set Input Values for Scheduled Runs
         if: github.event_name == 'schedule'
         run: |
-          echo "testsPath=SignUp.UserManagement" >> $GITHUB_ENV
-          echo "windowsBrowser=chrome" >> $GITHUB_ENV
-          echo "ubuntuBrowser=chrome" >> $GITHUB_ENV
+          echo "TESTS_PATH=SignUp.UserManagement" >> $GITHUB_ENV
+          echo "WINDOWS_BROWSER=chrome" >> $GITHUB_ENV
+          echo "UBUNTU_BROWSER=chrome" >> $GITHUB_ENV
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -68,7 +68,7 @@ jobs:
       - name: Run Tests Automatically
         continue-on-error: true
         if: github.event_name == 'schedule'
-        run: mvn -DbrowserName="${{env.windowsBrowser}}" -Dtest="${{env.testspath}}" test
+        run: mvn -DbrowserName="$WINDOWS_BROWSER" -Dtest="$TESTS_PATH" test
 
       - name: Generate Allure Report Single File Windows
         continue-on-error: true
@@ -121,7 +121,7 @@ jobs:
       - name: Run Tests Automatically
         continue-on-error: true
         if: github.event_name == 'schedule'
-        run: mvn -DbrowserName="${{env.ubuntuBrowser}}" -Dheadless=headless -Dtest="${{env.testspath}}" test
+        run: mvn -DbrowserName="$UBUNTU_BROWSER" -Dheadless=headless -Dtest="$TESTS_PATH" test
 
       - name: Generate Allure Report Single File Ubuntu
         continue-on-error: true
