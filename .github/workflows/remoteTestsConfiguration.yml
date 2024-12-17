@@ -31,13 +31,17 @@ on:
           - edge
           - chrome
 
-
 jobs:
   Remote_Tests_Execution_windows:
     runs-on: windows-latest
     permissions:
       checks: write
     steps:
+      - name: Set Input Values for Scheduled Runs
+        if: github.event_name == 'schedule'
+        run: |
+          echo "INPUT1=static-value-1" >> $GITHUB_ENV
+          echo "INPUT2=static-value-2" >> $GITHUB_ENV
 
       - name: Checkout
         uses: actions/checkout@v4
