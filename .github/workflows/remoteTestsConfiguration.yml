@@ -1,8 +1,6 @@
 name: Remote Test Execution
 
 on:
-  schedule:
-    - cron: "*/20 * * * *"
   pull_request:
     branches:
       - master
@@ -112,7 +110,7 @@ jobs:
       - name: Run Tests Automatically
         continue-on-error: true
         if: github.event_name == 'schedule'
-        run: mvn -DbrowserName="${{ env.UBUNTU_BROWSER }}" -Dheadless=headless -Dtest="${{ env.TEST_PATH }}" test
+        run: mvn -DbrowserName="${{ env.UBUNTU_BROWSER }}" -Dheadless=headless -Dtest="${{ env.TESTS_PATH }}" test
 
       - name: Generate Allure Report Single File Ubuntu
         continue-on-error: true
