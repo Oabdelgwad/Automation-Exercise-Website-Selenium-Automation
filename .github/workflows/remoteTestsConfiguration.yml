@@ -120,12 +120,12 @@ jobs:
         if: github.event_name == 'schedule'
         run: mvn -DbrowserName="${{ env.UBUNTU_BROWSER }}" -Dheadless=headless -Dtest="${{ env.TESTS_PATH }}" test
 
-      - name: Record
+      - name: Launchable Record
         uses: launchableinc/record-build-and-test-results-action@v1.0.0
         with:
           build_name: $GITHUB_RUN_ID
-          test_runner: <YOUR TEST RUNNER HERE>
-          report_path: <PATH TO TEST REPORT XML FILES>
+          test_runner: maven
+          report_path: './**/target/surefire-reports'
         if: always()
 
 
