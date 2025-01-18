@@ -35,7 +35,7 @@ jobs:
     env:
       TESTS_PATH: "SignUp.UserManagement"
       WINDOWS_BROWSER: "edge"
-      LAUNCHABLE_TOKEN: ${{ env.LAUNCHABLE_TOKEN }}
+      LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN }}
       LAUNCHABLE_DEBUG: 1
       LAUNCHABLE_REPORT_ERROR: 1
 
@@ -96,7 +96,7 @@ jobs:
     env:
       TESTS_PATH: "SignUp.UserManagement"
       UBUNTU_BROWSER: "chrome"
-      LAUNCHABLE_TOKEN: ${{ env.LAUNCHABLE_TOKEN }}
+      LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN }}
       LAUNCHABLE_DEBUG: 1
       LAUNCHABLE_REPORT_ERROR: 1
     permissions:
