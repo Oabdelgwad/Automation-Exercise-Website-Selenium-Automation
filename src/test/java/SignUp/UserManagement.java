@@ -29,7 +29,6 @@ public class UserManagement{
         driver = DriverFactory.driverSetUp(System.getProperty("browserName"),true,System.getProperty("headless"));
         testData=new JsonFileManager("src/test/resources/signUpTestData.json");
     }
-    @Description("Verify on new user registeration")
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void signUpNewUser(){
