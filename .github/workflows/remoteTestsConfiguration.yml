@@ -63,6 +63,14 @@ jobs:
         if: github.event_name == 'schedule'
         run: mvn -DbrowserName="${{ env.WINDOWS_BROWSER }}" -Dtest="${{ env.TESTS_PATH }}" test
 
+      - name: Record
+        uses: launchableinc/record-build-and-test-results-action@v1.0.0
+        with:
+          build_name: $GITHUB_RUN_ID
+          test_runner: <YOUR TEST RUNNER HERE>
+          report_path: <PATH TO TEST REPORT XML FILES>
+        if: always()
+
       - name: Generate Allure Report Single File Windows
         continue-on-error: true
         run:  mvn allure:report
@@ -111,6 +119,15 @@ jobs:
         continue-on-error: true
         if: github.event_name == 'schedule'
         run: mvn -DbrowserName="${{ env.UBUNTU_BROWSER }}" -Dheadless=headless -Dtest="${{ env.TESTS_PATH }}" test
+
+      - name: Record
+        uses: launchableinc/record-build-and-test-results-action@v1.0.0
+        with:
+          build_name: $GITHUB_RUN_ID
+          test_runner: <YOUR TEST RUNNER HERE>
+          report_path: <PATH TO TEST REPORT XML FILES>
+        if: always()
+
 
       - name: Generate Allure Report Single File Ubuntu
         continue-on-error: true
