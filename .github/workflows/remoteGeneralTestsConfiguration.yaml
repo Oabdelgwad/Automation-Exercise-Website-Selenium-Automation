@@ -117,7 +117,7 @@ jobs:
       - name: Run Tests Signup test manually
         continue-on-error: true
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.testsPath == 'SignUp.UserManagement'
-        run: mvn -DbrowserName="${{github.event.inputs.windowsBrowser}}"  -Dtest="${{github.event.inputs.testsPath}}" test
+        run: mvn -DbrowserName="${{github.event.inputs.windowsBrowser}}" -Dheadless=headless -Dtest="${{github.event.inputs.testsPath}}" test
 
       - name: Launchable Record
         uses: launchableinc/record-build-and-test-results-action@v1.0.0
