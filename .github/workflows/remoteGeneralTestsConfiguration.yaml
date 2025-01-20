@@ -1,4 +1,4 @@
-name: Remote Test Execution
+name: Remote Tests Execution
 
 on:
   pull_request:
@@ -10,7 +10,10 @@ on:
       testsPath:
         description: 'Path to Tests to Execute'
         default: 'SignUp.UserManagement'
-        required: false
+        type: choice
+        options:
+          - SignUp.UserManagement
+          - ContactWebsiteAdmins.ContactUs
 
       windowsBrowser:
         description: 'Browser you want to run Windows machine on'
@@ -33,7 +36,6 @@ jobs:
   Remote_Tests_Execution_windows:
     runs-on: windows-latest
     env:
-      TESTS_PATH: "SignUp.UserManagement"
       WINDOWS_BROWSER: "edge"
       LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN }}
       LAUNCHABLE_DEBUG: 1
@@ -56,16 +58,15 @@ jobs:
         with:
           maven-version: 3.9.6
 
-      - name: Run Tests manually
+      - name: Run Tests Contact Us test manually
         continue-on-error: true
-        if: github.event_name == 'workflow_dispatch'
-        run: mvn -DbrowserName="${{github.event.inputs.windowsBrowser}}" -Dtest="${{github.event.inputs.testsPath}}" test
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.testsPath == 'ContactWebsiteAdmins.ContactUs'
+        run: mvn -DbrowserName="${{github.event.inputs.windowsBrowser}}" -DcontactUsAttachmentPath=$GITHUB_WORKSPACE -Dtest="${{github.event.inputs.testsPath}}" test
 
-      - name: Run Tests Automatically
+      - name: Run Tests Signup test manually
         continue-on-error: true
-        if: github.event_name == 'schedule'
-        run: mvn -DbrowserName="${{ env.WINDOWS_BROWSER }}" -Dtest="${{ env.TESTS_PATH }}" test
-
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.testsPath == 'SignUp.UserManagement'
+        run: mvn -DbrowserName="${{github.event.inputs.windowsBrowser}}"  -Dtest="${{github.event.inputs.testsPath}}" test
 
       - name: Generate Allure Report Single File Windows
         continue-on-error: true
@@ -87,7 +88,6 @@ jobs:
   Remote_Tests_Execution_ubuntu:
     runs-on: ubuntu-latest
     env:
-      TESTS_PATH: "SignUp.UserManagement"
       UBUNTU_BROWSER: "chrome"
       LAUNCHABLE_TOKEN: ${{ secrets.LAUNCHABLE_TOKEN }}
       LAUNCHABLE_DEBUG: 1
@@ -109,15 +109,15 @@ jobs:
         with:
           maven-version: 3.9.6
 
-      - name: Run Tests manually
+      - name: Run Tests Contact Us test manually
         continue-on-error: true
-        if: github.event_name == 'workflow_dispatch'
-        run: mvn -DbrowserName="${{github.event.inputs.ubuntuBrowser}}" -Dheadless=headless -Dtest="${{github.event.inputs.testsPath}}" test
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.testsPath == 'ContactWebsiteAdmins.ContactUs'
+        run: mvn -DbrowserName="${{github.event.inputs.windowsBrowser}}" -DcontactUsAttachmentPath=$GITHUB_WORKSPACE -Dtest="${{github.event.inputs.testsPath}}" test
 
-      - name: Run Tests Automatically
+      - name: Run Tests Signup test manually
         continue-on-error: true
-        if: github.event_name == 'schedule'
-        run: mvn -DbrowserName="${{ env.UBUNTU_BROWSER }}" -Dheadless=headless -Dtest="${{ env.TESTS_PATH }}" test
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.testsPath == 'SignUp.UserManagement'
+        run: mvn -DbrowserName="${{github.event.inputs.windowsBrowser}}"  -Dtest="${{github.event.inputs.testsPath}}" test
 
       - name: Launchable Record
         uses: launchableinc/record-build-and-test-results-action@v1.0.0
