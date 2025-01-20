@@ -112,7 +112,7 @@ jobs:
       - name: Run Tests Contact Us test manually
         continue-on-error: true
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.testsPath == 'ContactWebsiteAdmins.ContactUs'
-        run: mvn -DbrowserName="${{github.event.inputs.windowsBrowser}}" -DcontactUsAttachmentPath="$GITHUB_WORKSPACE/"  -Dtest="${{github.event.inputs.testsPath}}" test
+        run: mvn -DbrowserName="${{github.event.inputs.windowsBrowser}}" -Dheadless=headless -DcontactUsAttachmentPath="$GITHUB_WORKSPACE/"  -Dtest="${{github.event.inputs.testsPath}}" test
 
       - name: Run Tests Signup test manually
         continue-on-error: true

@@ -27,7 +27,7 @@ public class ContactUs {
     }
     @Severity(SeverityLevel.NORMAL)
     @Test
-    public void signUpNewUser(){
+    public void sendContactRequestTest(){
         new HomePage(driver).navigate();
         new MenuItems(driver).navigateToContactUsPage();
         new ContactUsPage(driver).submitContactRequest(testData.getTestData("name"),
