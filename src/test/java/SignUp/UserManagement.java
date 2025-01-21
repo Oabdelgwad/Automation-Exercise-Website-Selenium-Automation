@@ -11,24 +11,19 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class UserManagement{
     static WebDriver driver;
     static JsonFileManager testData;
     @BeforeClass
-    public void loadProperies()
+    public void driverSetupAndWebsiteNavigation()
     {
         PropertiesReader.loadProperties();
-    }
-    @BeforeMethod
-    public void driverSetupAndWebsiteNavigation(){
         driver = DriverFactory.driverSetUp(System.getProperty("browserName"),true,System.getProperty("headless"));
         testData=new JsonFileManager("src/test/resources/signUpTestData.json");
     }
+
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void signUpNewUser(){
@@ -45,14 +40,20 @@ public class UserManagement{
                 .fillStateAndCityAndZipCode(testData.getTestData("state"), testData.getTestData("city"),testData.getTestData("zipCode"))
                 .fillMobilePhone(testData.getTestData("mobilePhone"))
                 .clickOnCreateAccountButtonAndNavigateCreatedAccountPage();
+    }
+    @Test (dependsOnMethods = { "signUpNewUser" })
+    public void completeCreation(){
         new CreatedAccountPage(driver).assertAccountCreated( "ACCOUNT CREATED!")
                 .backToHomePage();
         new HomePage(driver).assertYouAreLoggedInHomePage(testData.getTestData("userName"));
+    }
+    @Test(dependsOnMethods = { "completeCreation" })
+    public void deleteAccount(){
         new MenuItems(driver).deleteAccount();
         new DeletedAccountPage(driver).assertAccountDeleted("ACCOUNT DELETED!")
                 .backToHomePage();
     }
-    @AfterMethod
+    @AfterClass
     public void quitBrowser(){
         driver.quit();
     }
