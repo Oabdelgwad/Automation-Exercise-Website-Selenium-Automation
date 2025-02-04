@@ -8,14 +8,14 @@ steps:
   - task: JavaToolInstaller@0
     inputs:
       versionSpec: '21'
-      jdkArchitecture: 'x64'
+      jdkArchitecture: 'x64'  # Correct key for specifying architecture
 
   - task: Maven@3
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
       javaHomeOption: 'Path'
-      jdkArchitectureOption: 'x64'
+      jdkArchitectureOption: 'x64'  # Remove this if it causes issues
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'package'
