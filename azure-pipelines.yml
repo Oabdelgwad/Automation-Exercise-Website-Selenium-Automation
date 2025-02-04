@@ -5,18 +5,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  - task: UseJavaVersion@1
+  - task: JavaToolInstaller@0
     inputs:
-      version: '21'
-      architecture: 'x64'
+      versionSpec: '21'
+      jdkArchitectureOption: 'x64'  # Fix for missing architecture option
+      jdkSource: 'PreInstalled'     # Use the pre-installed JDK in the Azure DevOps agent
 
   - task: Maven@3
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
-      javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '1.21'
-      jdkArchitectureOption: 'x64'
+      javaHomeOption: 'Path'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'package'
@@ -25,7 +24,7 @@ steps:
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)/target'
-      Contents: '**/*.jar'  # Change to `**/*.war` if needed
+      Contents: '**/*.jar'  # Adjust for WAR files if needed
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   # Publish the artifact
