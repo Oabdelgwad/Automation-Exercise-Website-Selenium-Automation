@@ -5,24 +5,30 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  - task: UseJavaVersion@1
+  - task: JavaToolInstaller@0
     inputs:
-      version: '21'
-      architecture: 'x64'
+      versionSpec: '21'
+      jdkArchitecture: 'x64'
 
   - task: Maven@3
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
       javaHomeOption: 'Path'
-      jdkVersionOption: '21'
       jdkArchitectureOption: 'x64'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'package'
 
-  # Publish the build artifact (JAR/WAR file)
+  # Copy the JAR/WAR file to the artifact staging directory
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)/target'
+      Contents: '**/*.jar'  # Adjust for WAR files if needed
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  # Publish the artifact
   - task: PublishBuildArtifacts@1
     inputs:
-      pathToPublish: '$(Build.ArtifactStagingDirectory)'  # Destination for artifacts
-      artifactName: 'drop'  # Artifact name shown in Azure DevOps
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'drop'
