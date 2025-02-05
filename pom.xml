@@ -4,6 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>com.gizasystems</groupId>
     <artifactId>Headway2024</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -62,6 +63,30 @@
         </dependency>
 
     </dependencies>
+    <distributionManagement>
+        <repository>
+            <id>omarmetwally0589</id>
+            <url>https://pkgs.dev.azure.com/omarmetwally0589/_packaging/omarmetwally0589/maven/v1</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </distributionManagement>
+    <repositories>
+        <repository>
+            <id>omarmetwally0589</id>
+            <url>https://pkgs.dev.azure.com/omarmetwally0589/_packaging/omarmetwally0589/maven/v1</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <build>
         <pluginManagement>
